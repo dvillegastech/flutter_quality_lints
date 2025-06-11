@@ -17,8 +17,8 @@ class AvoidBuildContextAcrossAsync extends LintRule {
 
   @override
   bool shouldReport(AstNode node) {
-    if (node is MethodDeclaration && node.body != null) {
-      return _hasUnsafeContextUsage(node.body!);
+    if (node is MethodDeclaration) {
+      return _hasUnsafeContextUsage(node.body);
     }
     return false;
   }
@@ -59,8 +59,8 @@ class AvoidBuildContextAcrossAsync extends LintRule {
       return _expressionContainsAwait(statement.expression);
     } else if (statement is VariableDeclarationStatement) {
       for (final variable in statement.variables.variables) {
-        if (variable.initializer != null && 
-            _expressionContainsAwait(variable.initializer!)) {
+        final initializer = variable.initializer;
+        if (initializer != null && _expressionContainsAwait(initializer)) {
           return true;
         }
       }
@@ -80,7 +80,7 @@ class AvoidBuildContextAcrossAsync extends LintRule {
     if (expression is MethodInvocation) {
       // Check arguments for await expressions
       for (final arg in expression.argumentList.arguments) {
-        if (arg is Expression && _expressionContainsAwait(arg)) {
+        if (_expressionContainsAwait(arg)) {
           return true;
         }
       }
@@ -104,23 +104,24 @@ class AvoidBuildContextAcrossAsync extends LintRule {
     
     // Check for context property access
     if (expression is PropertyAccess) {
-      if (expression.target is SimpleIdentifier && 
-          (expression.target as SimpleIdentifier).name == 'context') {
+      final target = expression.target;
+      if (target is SimpleIdentifier && target.name == 'context') {
         return true;
       }
     }
     
     // Check for method calls that use context
     if (expression is MethodInvocation) {
+      final target = expression.target;
+      
       // Check if the target is context
-      if (expression.target is SimpleIdentifier && 
-          (expression.target as SimpleIdentifier).name == 'context') {
+      if (target is SimpleIdentifier && target.name == 'context') {
         return true;
       }
       
       // Check for Navigator.of(context), Theme.of(context), etc.
-      if (expression.target is SimpleIdentifier) {
-        final targetName = (expression.target as SimpleIdentifier).name;
+      if (target is SimpleIdentifier) {
+        final targetName = target.name;
         const contextConsumers = {
           'Navigator', 'Theme', 'MediaQuery', 'Scaffold', 
           'ModalRoute', 'DefaultTabController'
