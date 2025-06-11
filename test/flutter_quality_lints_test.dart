@@ -1,3 +1,8 @@
+import 'package:flutter_quality_lints/src/rules/avoid_hardcoded_strings.dart';
+import 'package:flutter_quality_lints/src/rules/avoid_late_keyword.dart';
+import 'package:flutter_quality_lints/src/rules/maximum_lines_per_file.dart';
+import 'package:flutter_quality_lints/src/rules/prefer_const_widgets.dart';
+import 'package:flutter_quality_lints/src/rules/prefer_named_parameters.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_quality_lints/flutter_quality_lints.dart';
 
@@ -124,26 +129,31 @@ void main() {
         expect(coreRuleNames, contains('prefer_named_parameters'));
       });
 
-      test('Advanced rules collection should contain expected rules', () {
-        final advancedRules = FlutterQualityLints.advancedRules;
-        expect(advancedRules.length, equals(7));
+      test('Non-core rules collection should contain expected rules', () {
+        final performanceRules = FlutterQualityLints.performanceRules;
+        final architectureRules = FlutterQualityLints.architectureRules;
+        final securityRules = FlutterQualityLints.securityRules;
+        final totalNonCoreRules = performanceRules.length + architectureRules.length + securityRules.length;
+        expect(totalNonCoreRules, equals(6));
         
-        final advancedRuleNames = advancedRules.map((rule) => rule.ruleName).toSet();
-        expect(advancedRuleNames, contains('avoid_nested_conditionals'));
-        expect(advancedRuleNames, contains('prefer_early_return'));
-        expect(advancedRuleNames, contains('avoid_magic_numbers'));
-        expect(advancedRuleNames, contains('prefer_single_widget_per_file'));
-        expect(advancedRuleNames, contains('avoid_long_methods'));
-        expect(advancedRuleNames, contains('prefer_trailing_commas'));
-        expect(advancedRuleNames, contains('avoid_empty_catch_blocks'));
+        final allNonCoreRules = [...performanceRules, ...architectureRules, ...securityRules];
+        final nonCoreRuleNames = allNonCoreRules.map((rule) => rule.ruleName).toSet();
+        expect(nonCoreRuleNames, contains('prefer_slivers_over_columns'));
+        expect(nonCoreRuleNames, contains('avoid_widget_rebuilds'));
+        expect(nonCoreRuleNames, contains('prefer_stateless_widgets'));
+        expect(nonCoreRuleNames, contains('avoid_build_context_across_async'));
+        expect(nonCoreRuleNames, contains('enforce_layer_dependencies'));
+        expect(nonCoreRuleNames, contains('avoid_hardcoded_secrets'));
       });
 
-      test('All rules collection should contain both core and advanced rules', () {
+      test('All rules collection should contain core, performance, architecture, and security rules', () {
         final allRules = FlutterQualityLints.allRules;
         final coreRules = FlutterQualityLints.coreRules;
-        final advancedRules = FlutterQualityLints.advancedRules;
+        final performanceRules = FlutterQualityLints.performanceRules;
+        final architectureRules = FlutterQualityLints.architectureRules;
+        final securityRules = FlutterQualityLints.securityRules;
         
-        expect(allRules.length, equals(coreRules.length + advancedRules.length));
+        expect(allRules.length, equals(coreRules.length + performanceRules.length + architectureRules.length + securityRules.length));
       });
 
       test('Recommended rules collection should be a subset of all rules', () {
@@ -155,6 +165,29 @@ void main() {
           expect(allRuleNames, contains(rule.ruleName),
               reason: 'Recommended rule ${rule.ruleName} should be in allRules');
         }
+      });
+
+      test('Performance rules collection should contain expected rules', () {
+        final performanceRules = FlutterQualityLints.performanceRules;
+        expect(performanceRules.length, equals(4));
+        
+        // Check for specific performance rules
+        expect(performanceRules.any((rule) => rule.ruleName == 'prefer_slivers_over_columns'), isTrue);
+        expect(performanceRules.any((rule) => rule.ruleName == 'avoid_widget_rebuilds'), isTrue);
+        expect(performanceRules.any((rule) => rule.ruleName == 'prefer_stateless_widgets'), isTrue);
+        expect(performanceRules.any((rule) => rule.ruleName == 'avoid_build_context_across_async'), isTrue);
+      });
+
+      test('Architecture rules collection should contain expected rules', () {
+        final architectureRules = FlutterQualityLints.architectureRules;
+        expect(architectureRules.length, equals(1));
+        expect(architectureRules.any((rule) => rule.ruleName == 'enforce_layer_dependencies'), isTrue);
+      });
+
+      test('Security rules collection should contain expected rules', () {
+        final securityRules = FlutterQualityLints.securityRules;
+        expect(securityRules.length, equals(1));
+        expect(securityRules.any((rule) => rule.ruleName == 'avoid_hardcoded_secrets'), isTrue);
       });
     });
   });

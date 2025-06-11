@@ -2,21 +2,20 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
-import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:custom_lint_builder/custom_lint_builder.dart' as custom_lint;
 
 /// Base class for all custom linting rules
-abstract class LintRule extends DartLintRule {
+abstract class LintRule extends custom_lint.DartLintRule {
   /// Creates a new instance of [LintRule]
-  const LintRule() : super(code: const LintCode(name: '', problemMessage: ''));
+  const LintRule() : super(code: const custom_lint.LintCode(name: '', problemMessage: ''));
 
   /// The unique code for this lint rule
   String get ruleName;
 
   @override
-  LintCode get code => LintCode(
+  custom_lint.LintCode get code => custom_lint.LintCode(
     name: ruleName,
     problemMessage: message,
-    errorSeverity: severity,
   );
 
   /// The severity level of this lint rule
@@ -33,9 +32,9 @@ abstract class LintRule extends DartLintRule {
 
   @override
   void run(
-    CustomLintResolver resolver,
+    custom_lint.CustomLintResolver resolver,
     ErrorReporter reporter,
-    CustomLintContext context,
+    custom_lint.CustomLintContext context,
   ) {
     context.registry.addCompilationUnit((node) {
       final visitor = _LintRuleVisitor(this, reporter);
@@ -52,9 +51,9 @@ class _LintRuleVisitor extends RecursiveAstVisitor<void> {
 
   void visitNode(AstNode node) {
     if (rule.shouldReport(node)) {
-      reporter.reportErrorForNode(
-        rule.code,
+      reporter.atNode(
         node,
+        rule.code,
       );
     }
     node.visitChildren(this);

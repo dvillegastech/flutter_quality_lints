@@ -1,0 +1,190 @@
+# Flutter Quality Lints - Native Analysis Options Configuration
+# This file demonstrates how to integrate Flutter Quality Lints with the native Dart analyzer
+
+analyzer:
+  plugins:
+    - flutter_quality_lints
+  
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/generated_plugin_registrant.dart"
+    - "**/l10n/"
+    - "**/build/"
+    - "**/ios/"
+    - "**/android/"
+    - "**/web/"
+    - "**/windows/"
+    - "**/macos/"
+    - "**/linux/"
+
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+# Custom lint configuration for Flutter Quality Lints
+custom_lint:
+  enable_all_lint_rules: false
+  rules:
+    # Core Quality Rules
+    - avoid_empty_catch_blocks
+    - avoid_long_methods
+    - avoid_magic_numbers
+    - avoid_nested_conditionals
+    - prefer_early_return
+    - prefer_single_widget_per_file
+    - prefer_trailing_commas
+    
+    # Flutter Performance Rules
+    - prefer_slivers_over_columns
+    - avoid_widget_rebuilds
+    - prefer_stateless_widgets
+    - avoid_build_context_across_async
+    
+    # Architecture Rules
+    - enforce_layer_dependencies
+    
+    # Security Rules
+    - avoid_hardcoded_secrets
+
+# Rule Configuration
+flutter_quality_lints:
+  # Core Rules Configuration
+  avoid_long_methods:
+    max_lines: 50
+    exclude_getters: true
+    exclude_constructors: true
+  
+  avoid_magic_numbers:
+    allowed_numbers: [0, 1, -1, 2, 10, 100, 1000]
+    ignore_in_tests: true
+  
+  avoid_nested_conditionals:
+    max_depth: 3
+    ignore_ternary: false
+  
+  prefer_single_widget_per_file:
+    ignore_private_widgets: true
+    max_widgets_per_file: 1
+  
+  # Performance Rules Configuration
+  prefer_slivers_over_columns:
+    max_children: 10
+    check_scrollable_nesting: true
+  
+  avoid_widget_rebuilds:
+    check_const_usage: true
+    check_inline_functions: true
+  
+  prefer_stateless_widgets:
+    ignore_with_controllers: true
+    ignore_lifecycle_methods: true
+  
+  avoid_build_context_across_async:
+    suggest_mounted_check: true
+    ignore_in_tests: false
+  
+  # Architecture Rules Configuration
+  enforce_layer_dependencies:
+    layers:
+      presentation: ["lib/presentation/", "lib/ui/", "lib/pages/", "lib/screens/", "lib/widgets/"]
+      domain: ["lib/domain/", "lib/entities/", "lib/usecases/", "lib/repositories/"]
+      data: ["lib/data/", "lib/datasources/", "lib/models/"]
+      infrastructure: ["lib/infrastructure/", "lib/external/", "lib/services/"]
+    
+    dependency_rules:
+      presentation: ["domain"]  # Can only depend on domain
+      domain: []                # Pure - no dependencies
+      data: ["domain"]          # Can only depend on domain
+      infrastructure: ["domain", "data"]  # Can depend on domain and data
+  
+  # Security Rules Configuration
+  avoid_hardcoded_secrets:
+    min_secret_length: 10
+    ignore_test_files: true
+    check_patterns:
+      - api_keys
+      - jwt_tokens
+      - oauth_tokens
+      - database_urls
+      - private_keys
+    
+    safe_patterns:
+      - "localhost"
+      - "example.com"
+      - "test"
+      - "debug"
+      - "assets/"
+
+# Dart/Flutter native linter rules (complement to our custom rules)
+linter:
+  rules:
+    # Dart Style Guide
+    - always_declare_return_types
+    - always_put_control_body_on_new_line
+    - always_put_required_named_parameters_first
+    - always_specify_types
+    - always_use_package_imports
+    
+    # Error Prevention
+    - avoid_catching_errors
+    - avoid_dynamic_calls
+    - avoid_empty_else
+    - avoid_print
+    - avoid_relative_lib_imports
+    - avoid_slow_async_io
+    - avoid_type_to_string
+    - avoid_types_as_parameter_names
+    - avoid_web_libraries_in_flutter
+    
+    # Flutter Specific
+    - avoid_unnecessary_containers
+    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    - prefer_final_fields
+    - prefer_final_in_for_each
+    - prefer_final_locals
+    - prefer_for_elements_to_map_fromIterable
+    - prefer_generic_function_type_aliases
+    - prefer_if_elements_to_conditional_expressions
+    - prefer_initializing_formals
+    - prefer_inlined_adds
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_iterable_whereType
+    - prefer_single_quotes
+    - prefer_spread_collections
+    
+    # Performance
+    - prefer_collection_literals
+    - unnecessary_await_in_return
+    - unnecessary_lambdas
+    - unnecessary_new
+    - unnecessary_null_aware_assignments
+    - unnecessary_null_checks
+    - unnecessary_null_in_if_null_operators
+    - unnecessary_overrides
+    - unnecessary_parenthesis
+    - unnecessary_raw_strings
+    - unnecessary_string_escapes
+    - unnecessary_string_interpolations
+    - unnecessary_this
+    
+    # Documentation
+    - public_member_api_docs
+    - comment_references
+    
+    # Formatting (handled by dart format)
+    - directives_ordering
+    - file_names
+    - library_names
+    - library_prefixes
+    - non_constant_identifier_names
+    - package_names 

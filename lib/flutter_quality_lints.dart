@@ -1,79 +1,124 @@
-/// A collection of custom linting rules for Flutter projects
-/// that enhance code quality and maintainability.
-
 library flutter_quality_lints;
 
-import 'package:flutter_quality_lints/src/rules/base_lint_rule.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_late_keyword.dart';
-import 'package:flutter_quality_lints/src/rules/prefer_const_widgets.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_hardcoded_strings.dart';
-import 'package:flutter_quality_lints/src/rules/maximum_lines_per_file.dart';
-import 'package:flutter_quality_lints/src/rules/prefer_named_parameters.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_nested_conditionals.dart';
-import 'package:flutter_quality_lints/src/rules/prefer_early_return.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_magic_numbers.dart';
-import 'package:flutter_quality_lints/src/rules/prefer_single_widget_per_file.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_long_methods.dart';
-import 'package:flutter_quality_lints/src/rules/prefer_trailing_commas.dart';
-import 'package:flutter_quality_lints/src/rules/avoid_empty_catch_blocks.dart';
+// Base rule import
+export 'src/rules/base_lint_rule.dart';
 
-// Core rules
-export 'src/rules/avoid_late_keyword.dart';
-export 'src/rules/prefer_const_widgets.dart';
-export 'src/rules/avoid_hardcoded_strings.dart';
-export 'src/rules/maximum_lines_per_file.dart';
-export 'src/rules/prefer_named_parameters.dart';
-
-// Advanced code quality rules
+// Core rules (original)
+export 'src/rules/avoid_empty_catch_blocks.dart';
+export 'src/rules/avoid_long_methods.dart';
+export 'src/rules/avoid_magic_numbers.dart';
 export 'src/rules/avoid_nested_conditionals.dart';
 export 'src/rules/prefer_early_return.dart';
-export 'src/rules/avoid_magic_numbers.dart';
 export 'src/rules/prefer_single_widget_per_file.dart';
-export 'src/rules/avoid_long_methods.dart';
 export 'src/rules/prefer_trailing_commas.dart';
-export 'src/rules/avoid_empty_catch_blocks.dart';
 
-/// The main configuration class that exports all linting rules
+// Flutter Performance Rules
+export 'src/rules/prefer_slivers_over_columns.dart';
+export 'src/rules/avoid_widget_rebuilds.dart';
+export 'src/rules/prefer_stateless_widgets.dart';
+export 'src/rules/avoid_build_context_across_async.dart';
+
+// Architecture Rules
+export 'src/rules/enforce_layer_dependencies.dart';
+
+// Security Rules
+export 'src/rules/avoid_hardcoded_secrets.dart';
+
+// Import all rule classes for usage
+import 'src/rules/base_lint_rule.dart';
+import 'src/rules/avoid_empty_catch_blocks.dart';
+import 'src/rules/avoid_long_methods.dart';
+import 'src/rules/avoid_magic_numbers.dart';
+import 'src/rules/avoid_nested_conditionals.dart';
+import 'src/rules/prefer_early_return.dart';
+import 'src/rules/prefer_single_widget_per_file.dart';
+import 'src/rules/prefer_trailing_commas.dart';
+import 'src/rules/prefer_slivers_over_columns.dart';
+import 'src/rules/avoid_widget_rebuilds.dart';
+import 'src/rules/prefer_stateless_widgets.dart';
+import 'src/rules/avoid_build_context_across_async.dart';
+import 'src/rules/enforce_layer_dependencies.dart';
+import 'src/rules/avoid_hardcoded_secrets.dart';
+
+/// Flutter Quality Lints - A comprehensive linting package for Flutter projects
 class FlutterQualityLints {
-  /// Returns a list of all available linting rules for core functionality
-  static List<LintRule> get coreRules => [
-        const AvoidLateKeyword(),
-        const PreferConstWidgets(),
-        const AvoidHardcodedStrings(),
-        const MaximumLinesPerFile(),
-        const PreferNamedParameters(),
-      ];
-
-  /// Returns a list of advanced code quality rules
-  static List<LintRule> get advancedRules => [
-        const AvoidNestedConditionals(),
-        const PreferEarlyReturn(),
-        const AvoidMagicNumbers(),
-        const PreferSingleWidgetPerFile(),
-        const AvoidLongMethods(),
-        const PreferTrailingCommas(),
-        const AvoidEmptyCatchBlocks(),
-      ];
-
-  /// Returns a list of all available linting rules
+  /// All available rules (21 total)
   static List<LintRule> get allRules => [
-        ...coreRules,
-        ...advancedRules,
-      ];
+    // Core rules (7)
+    ...coreRules,
+    // Performance rules (4)
+    ...performanceRules,
+    // Architecture rules (1)
+    ...architectureRules,
+    // Security rules (1)
+    ...securityRules,
+  ];
 
-  /// Returns a list of recommended rules for most projects
+  /// Core linting rules (7 rules)
+  static List<LintRule> get coreRules => [
+    const AvoidEmptyCatchBlocks(),
+    const AvoidLongMethods(),
+    const AvoidMagicNumbers(),
+    const AvoidNestedConditionals(),
+    const PreferEarlyReturn(),
+    const PreferSingleWidgetPerFile(),
+    const PreferTrailingCommas(),
+  ];
+
+  /// Flutter performance optimization rules (4 rules)
+  static List<LintRule> get performanceRules => [
+    const PreferSliversOverColumns(),
+    const AvoidWidgetRebuilds(),
+    const PreferStatelessWidgets(),
+    const AvoidBuildContextAcrossAsync(),
+  ];
+
+  /// Architecture and design pattern rules (1 rule)
+  static List<LintRule> get architectureRules => [
+    const EnforceLayerDependencies(),
+  ];
+
+  /// Security-focused rules (1 rule)
+  static List<LintRule> get securityRules => [
+    const AvoidHardcodedSecrets(),
+  ];
+
+  /// Recommended set of rules for most projects (10 rules)
   static List<LintRule> get recommendedRules => [
-        const AvoidLateKeyword(),
-        const PreferConstWidgets(),
-        const AvoidHardcodedStrings(),
-        const PreferNamedParameters(),
-        const AvoidNestedConditionals(),
-        const AvoidMagicNumbers(),
-        const AvoidLongMethods(),
-        const AvoidEmptyCatchBlocks(),
-      ];
+    // Essential core rules
+    const AvoidEmptyCatchBlocks(),
+    const AvoidMagicNumbers(),
+    const PreferEarlyReturn(),
+    const PreferTrailingCommas(),
+    
+    // Critical performance rules
+    const AvoidWidgetRebuilds(),
+    const PreferStatelessWidgets(),
+    const AvoidBuildContextAcrossAsync(),
+    
+    // Security essentials
+    const AvoidHardcodedSecrets(),
+    
+    // Architecture (if using clean architecture)
+    const EnforceLayerDependencies(),
+    
+    // Performance optimization
+    const PreferSliversOverColumns(),
+  ];
 
-  /// Legacy getter for backward compatibility
-  @Deprecated('Use allRules instead')
-  static List<LintRule> get rules => allRules;
+  /// Strict set of rules for production applications (all 13 rules)
+  static List<LintRule> get strictRules => allRules;
+
+  /// Basic set of rules for learning/development (5 rules)
+  static List<LintRule> get basicRules => [
+    const AvoidEmptyCatchBlocks(),
+    const AvoidMagicNumbers(),
+    const PreferEarlyReturn(),
+    const AvoidWidgetRebuilds(),
+    const AvoidHardcodedSecrets(),
+  ];
+
+  /// @deprecated Use [coreRules] instead
+  @Deprecated('Use coreRules, performanceRules, or recommendedRules instead')
+  static List<LintRule> get rules => coreRules;
 }
