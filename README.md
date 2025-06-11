@@ -39,7 +39,7 @@ Add this to your package's `pubspec.yaml`:
 ```yaml
 dev_dependencies:
   custom_lint: ^0.6.4
-  flutter_quality_lints: ^0.9.0
+  flutter_quality_lints: ^0.9.1
 ```
 
 ## Configuration
@@ -138,7 +138,7 @@ The Flutter Quality Lints CLI provides advanced analysis capabilities:
 ```bash
 # Add to pubspec.yaml
 dependencies:
-  flutter_quality_lints: ^0.9.0
+  flutter_quality_lints: ^0.9.1
 
 # Make CLI executable
 chmod +x bin/flutter_quality_lints.dart
@@ -212,6 +212,23 @@ dart bin/flutter_quality_lints.dart report [html|json|markdown]
 # Trend Analysis Charts
 # Interactive Navigation
 # Export to PDF (HTML format)
+```
+
+#### Auto-Fix Engine
+```bash
+# Preview fixes without applying them
+dart bin/flutter_quality_lints.dart fix [target_directory] --dry-run
+
+# Apply automatic fixes
+dart bin/flutter_quality_lints.dart fix [target_directory]
+
+# Auto-fixes include:
+# - Add const to widget constructors
+# - Add trailing commas
+# - Convert to StatelessWidget
+# - Add mounted checks after async
+# - Simplify nested conditionals
+# - Extract magic numbers to constants
 ```
 
 ## Rule Details

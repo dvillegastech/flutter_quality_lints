@@ -12,6 +12,9 @@ export 'src/rules/prefer_early_return.dart';
 export 'src/rules/prefer_single_widget_per_file.dart';
 export 'src/rules/prefer_trailing_commas.dart';
 
+// Export auto-fix engine
+export 'src/fixes/auto_fix_engine.dart';
+
 // Flutter Performance Rules
 export 'src/rules/prefer_slivers_over_columns.dart';
 export 'src/rules/avoid_widget_rebuilds.dart';

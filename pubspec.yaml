@@ -1,6 +1,6 @@
 name: flutter_quality_lints
 description: A comprehensive linting package for Flutter projects with performance, security, architecture, and accessibility rules plus advanced CLI analysis tools.
-version: 0.9.0
+version: 0.9.1
 homepage: https://github.com/dvillegastech/flutter_quality_lints
 repository: https://github.com/dvillegastech/flutter_quality_lints
 
@@ -26,13 +26,9 @@ dev_dependencies:
 topics:
   - linting
   - flutter
-  - dart
   - code-quality
   - static-analysis
   - performance
-  - security
-  - architecture
-  - accessibility
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

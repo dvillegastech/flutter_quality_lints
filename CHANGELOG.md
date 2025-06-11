@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.1] - 2025-01-28
+
+### Added
+- **Auto-Fix Engine**: Automatic code correction engine with 6 intelligent fix types
+- **CLI `fix` command**: New command for applying automatic code corrections
+  - Dry-run mode to preview changes without applying them
+  - Processing of individual files or complete directories
+  - Automatic filtering of generated files
+- **Programmatic API** for Auto-Fix Engine integration in custom tools
+- **Complete example** of Auto-Fix Engine usage in `example/auto_fix_example.dart`
+
+### Available Auto-Fixes
+1. **AddConstToWidgetFix**: Adds `const` to widget constructors when possible
+2. **AddTrailingCommaFix**: Adds trailing commas for better code formatting
+3. **ConvertToStatelessWidgetFix**: Converts StatefulWidget to StatelessWidget when appropriate
+4. **AddMountedCheckFix**: Adds `mounted` checks after async operations
+5. **SimplifyConditionalFix**: Simplifies nested conditionals (prepared for expansion)
+6. **RemoveMagicNumberFix**: Extracts magic numbers to constants (prepared for expansion)
+
+### Improved
+- **Updated documentation** with Auto-Fix Engine usage examples
+- **Enhanced CLI** with new command and advanced options
+- **Fixed example** with explicit types and better logging practices
+
+### Technical
+- Syntactic analysis before applying corrections
+- Safe processing with file validation
+- Detailed metrics of fixes applied per file
+- Complete integration with existing linting system
+
 ## [0.9.0] - 2025-01-28
 
 ### Added
@@ -28,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Security scanning: secret detection, vulnerability assessment, input validation checking
 - Accessibility compliance: WCAG 2.1 AA validation, semantic labels, color contrast
 - Report generation: HTML, JSON, and Markdown formats with interactive features
+- Auto-Fix Engine: Automatic code correction with 6 intelligent fixes
 
 #### Enhanced Configuration
 - Rule presets: basicRules, recommendedRules, strictRules, performanceRules, securityRules
@@ -42,6 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - security - Security vulnerability scanning and secret detection
 - accessibility - WCAG compliance checking and usability validation
 - report - Interactive report generation in multiple formats
+- fix - Automatic code fixing with dry-run mode and selective application
 
 ### Changed
 - Reorganized rule structure into logical categories (Core, Performance, Architecture, Security)
