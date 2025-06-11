@@ -1,8 +1,8 @@
 name: flutter_quality_lints
-description: "Un paquete de reglas de linting personalizadas para mejorar la calidad del código en proyectos Flutter."
+description: "A custom linting rules package to improve code quality in Flutter projects."
 version: 0.0.1
-homepage: https://github.com/yourusername/flutter_quality_lints
-repository: https://github.com/yourusername/flutter_quality_lints
+homepage: https://github.com/dvillegastech/flutter_quality_lints
+repository: https://github.com/dvillegastech/flutter_quality_lints
 
 environment:
   sdk: '>=3.2.0 <4.0.0'

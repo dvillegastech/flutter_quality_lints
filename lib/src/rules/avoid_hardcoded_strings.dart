@@ -22,7 +22,7 @@ class AvoidHardcodedStrings extends LintRule {
       final argumentList = node.parent as ArgumentList;
       final parent = argumentList.parent;
       if (parent is InstanceCreationExpression) {
-        final constructorName = parent.constructorName.type.name.toString();
+        final constructorName = parent.constructorName.type.name2.toString();
         // You can expand this list with more widgets as needed
         const widgetNames = ['Text', 'AppBar', 'FlatButton', 'ElevatedButton'];
         if (widgetNames.contains(constructorName)) {

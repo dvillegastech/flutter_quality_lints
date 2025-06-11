@@ -25,9 +25,9 @@ class PreferNamedParameters extends LintRule {
        }
     } else if (node is ConstructorDeclaration) {
        final formalParameterList = node.parameters;
-       if (formalParameterList?.parameters.isNotEmpty ?? false) {
+       if (formalParameterList.parameters.isNotEmpty) {
            // If there is at least one positional (non-named) parameter, report it.
-           return formalParameterList!.parameters.any((p) => p.isPositional);
+           return formalParameterList.parameters.any((p) => p.isPositional);
        }
     }
     return false;

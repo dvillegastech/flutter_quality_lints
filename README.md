@@ -260,8 +260,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 If you have questions or need help:
 
-- Open an [issue](https://github.com/yourusername/flutter_quality_lints/issues)
-- Check the [documentation](https://github.com/yourusername/flutter_quality_lints/wiki)
+- Open an [issue](https://github.com/dvillegastech/flutter_quality_lints/issues)
 - Contact the maintainer
 
 ---

@@ -22,7 +22,7 @@ class PreferTrailingCommas extends LintRule {
     }
     
     if (node is FormalParameterList && _shouldHaveTrailingComma(node.parameters)) {
-      return !_hasTrailingComma(node.parameters, node.rightParenthesis?.offset ?? node.end);
+      return !_hasTrailingComma(node.parameters, node.rightParenthesis.offset);
     }
     
     if (node is ListLiteral && _shouldHaveTrailingComma(node.elements)) {
@@ -46,7 +46,7 @@ class PreferTrailingCommas extends LintRule {
     final compilationUnit = _getCompilationUnit(elements.first);
     if (compilationUnit?.lineInfo == null) return false;
     
-    final lineInfo = compilationUnit!.lineInfo!;
+    final lineInfo = compilationUnit!.lineInfo;
     final firstLine = lineInfo.getLocation(elements.first.offset).lineNumber;
     final lastLine = lineInfo.getLocation(elements.last.end).lineNumber;
     

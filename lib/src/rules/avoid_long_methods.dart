@@ -40,7 +40,7 @@ class AvoidLongMethods extends LintRule {
     // Convert offset to line numbers using lineInfo if available
     final compilationUnit = _getCompilationUnit(node);
     if (compilationUnit?.lineInfo != null) {
-      final lineInfo = compilationUnit!.lineInfo!;
+      final lineInfo = compilationUnit!.lineInfo;
       final startLineNumber = lineInfo.getLocation(startLine).lineNumber;
       final endLineNumber = lineInfo.getLocation(endLine).lineNumber;
       return endLineNumber - startLineNumber + 1;
