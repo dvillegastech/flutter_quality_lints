@@ -1,5 +1,10 @@
 # Flutter Quality Lints
 
+<a href="https://coff.ee/dvillegas" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="150" />
+</a>
+
+
 A comprehensive, enterprise-grade linting package for Flutter projects that ensures code quality, performance, security, and accessibility compliance.
 
 ## Features
